@@ -3,10 +3,24 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { ApolloClient, InMemoryCache, ApolloProvider,useQuery, gql , createHttpLink}  from "@apollo/client"
+import UserContext from './context/UserContext';
+
+const link = createHttpLink({
+  uri:'http://localhost:8000/graphql',
+  credentials:'include'
+})
+
+const client = new ApolloClient({
+  uri: 'http://localhost:8000/graphql',
+  cache: new InMemoryCache()
+})
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <UserContext>
+           <App />
+    </UserContext>
   </React.StrictMode>,
   document.getElementById('root')
 );
